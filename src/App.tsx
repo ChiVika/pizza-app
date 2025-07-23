@@ -1,33 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+
+import {type MouseEvent } from 'react'
+import Button from './components/Button/Button'
+import Input from './components/Input/Input';
+import { createBrowserRouter, Link, RouterProvider } from 'react-router-dom';
+import { Menu } from './pages/Menu/Menu';
+import { Cart } from './pages/Cart/Cart';
+import { Error } from './pages/Error/Error';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Menu/>,
+  },
+  {
+    path: '/cart',
+    element: <Cart/>,
+  },
+  {
+    path: '*',
+    element: <Error/>,
+  }
+])
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const addCounter = (e: MouseEvent) => {
+    console.log(e);
+  }
   return (
     <>
+      <Button onClick={addCounter}>Текст</Button>
+      <Button onClick={addCounter} appearence='big'>Текст</Button>
+      <Input/>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <Link to='/'>Меню</Link>
+        <Link to='/cart'>Корзина</Link>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <RouterProvider router={router}/>
+
     </>
   )
 }
