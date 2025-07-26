@@ -58,3 +58,7 @@
     margin: 0 auto 21px;
     display: flex;
 }
+.content{
+    width: 100%;
+    padding: 39px 64px;
+}

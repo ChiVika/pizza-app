@@ -6,6 +6,7 @@ import { Menu } from './pages/Menu/Menu.tsx'
 import { Cart } from './pages/Cart/Cart.tsx'
 import { Error } from './pages/Error/Error';
 import { Layout } from './layout/Menu/Layout.tsx'
+import { Product } from './pages/Product/Product.tsx'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: '*',
         element: <Error/>,
+      },
+      {
+        path: '/product/:id',
+        element: <Product/>
       }
     ]
   }
