@@ -3,16 +3,20 @@ import styles from './Layout.module.css';
 import Button from "../../components/Button/Button";
 import { useEffect } from "react";
 import cn from 'classnames';
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../store/store";
+import { UserAction } from "../../store/user.slice";
 export function Layout(){
     const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
       console.log(location);
     }, [location])
 
     const logout = () => {
-      localStorage.removeItem('jwt');
+      dispatch(UserAction.logout())
       navigate('/auth/login');
     }
 

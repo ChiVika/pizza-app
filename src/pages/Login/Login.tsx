@@ -8,6 +8,9 @@ import { useState, type FormEvent } from "react";
 import axios, { AxiosError } from "axios";
 import { PREFIX } from "../../helpers/API";
 import type { LoginResponse } from "../../interfaces/auth.interface";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../store/store";
+import { UserAction } from "../../store/user.slice";
 export type LoginForm = {
     email: {
         value: string
@@ -20,6 +23,8 @@ export function Login(){
     
     const [error, setError] = useState<string | null>('');
     const navigate = useNavigate();
+    const dispatch = useDispatch<AppDispatch>()
+
     const submit = async(e: FormEvent) => {
         e.preventDefault();
         setError(null);
@@ -33,7 +38,7 @@ export function Login(){
             email,
             password
         });
-        localStorage.setItem('jwt', JSON.stringify(data.access_token));
+        dispatch(UserAction.addJwt(data.access_token))
         navigate('/');
         console.log(data);
         }
