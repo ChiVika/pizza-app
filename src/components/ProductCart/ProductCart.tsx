@@ -1,8 +1,19 @@
 import { Link } from 'react-router-dom';
 import styles from './ProductCart.module.css';
 import type { ProductCartProps } from './ProductCart.prop';
+import type { MouseEvent } from 'react';
+import { useDispatch } from 'react-redux';
+import type { AppDispatch } from '../../store/store';
+import { CartAction } from '../../store/cart.slice';
 
 function ProductCart(props: ProductCartProps){
+    const dispatch = useDispatch<AppDispatch>();
+
+    const add = (e: MouseEvent) => {
+        e.preventDefault();
+        dispatch(CartAction.add(props.id))
+
+    }
     return (
         <Link to={`/product/${props.id}`} className={styles['link']}>
             <div className={styles['card']}>
@@ -11,7 +22,7 @@ function ProductCart(props: ProductCartProps){
                         {props.price}
                         <span className={styles['ru']}>₽</span>
                     </div>
-                    <button className={styles['add-to-cart']}>
+                    <button className={styles['add-to-cart']} onClick={add}>
                         <img src="/cart-icon.svg" alt="cart-icon" />
                     </button>
                     <div className={styles['rating']}>
