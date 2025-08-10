@@ -1,0 +1,36 @@
+.headling{
+    margin-bottom: 40px;
+}
+.line{
+    display: flex;
+    justify-content: space-between;
+    padding: 17px 0;
+    max-width: 512px;
+
+}
+.hr{
+    max-width: 512px;
+    margin: 0; 
+    border: 1px solid rgba(241, 242, 243, 1);
+}
+.text{
+    color: var(--text-color);
+    font-weight: 400;
+    font-size: 16px;
+}
+.price{
+    color: var(--text-color);
+    font-weight: 400;
+    font-size: 19px;
+}
+.order{
+
+    margin: 74px auto 0;
+    max-width: 248px;
+}
+.container{
+    width: 512px;
+    display: flex;
+    flex-direction: column;
+
+}

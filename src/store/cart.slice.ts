@@ -1,14 +1,9 @@
-// import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// import { loadState } from "./storage";
-// import { PREFIX } from "../helpers/API";
-// import type { LoginResponse } from "../interfaces/auth.interface";
-// import axios, { AxiosError } from "axios";
-// import type { Profile } from "../interfaces/user.interface";
-// import type { RootState } from "./store";
 
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { loadState } from "./storage";
 
-export const JWT_PERSISTENT_STATE = 'userData';
+
+export const СART_PERSISTENT_STATE = 'cartData';
 
 export interface CartItem{
     id: number,
@@ -16,20 +11,21 @@ export interface CartItem{
 }
 
 
-
-
 export interface CartState{
     items: CartItem[]
 }
-
+const loadedState = loadState<CartState>(СART_PERSISTENT_STATE);
 const initialState: CartState = {
-    items: []
+    items: (loadedState && Array.isArray(loadedState.items)) ? loadedState.items : []
 }
 
 export const CartSlice = createSlice({
     name: 'cart',
     initialState: initialState,
     reducers: {
+        clear: (state) => {
+            state.items = [];
+        },
         add: (state, action: PayloadAction<number>) => {
             const existedItem = state.items.find(i => i.id === action.payload);
             if(!existedItem){
@@ -41,9 +37,33 @@ export const CartSlice = createSlice({
                     i.count += 1;
                 }
                 return i;
-            })
+            }) 
+        },
+        remove: (state, action: PayloadAction<number>) => {
+            const existItem = state.items.find(i => i.id === action.payload);
+            if(!existItem){
+                return;
+            }
+            if(existItem.count === 1){
+                state.items = state.items.filter(i => i.id !== action.payload);
+            }
+            else{
+                state.items.map(i => {
+                    if(i.id === action.payload){
+                        i.count -= 1;
+                    }
+                    return i;
+                })
+                return;
+            }
+                
+
             
+        },
+        delete: (state, action: PayloadAction<number>) => {
+            state.items = state.items.filter(i => i.id !== action.payload);
         }
+
     }
 })
 

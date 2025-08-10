@@ -2,7 +2,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { JWT_PERSISTENT_STATE, UserSlice } from "./user.slice";
 import { saveState } from "./storage";
-import { CartSlice } from "./cart.slice";
+import { CartSlice, СART_PERSISTENT_STATE } from "./cart.slice";
 
 
 //кофигурируем хранилище
@@ -15,6 +15,7 @@ export const store = configureStore({
 
 store.subscribe(() => {
     saveState({jwt: store.getState().user.jwt}, JWT_PERSISTENT_STATE)
+    saveState(store.getState().cart, СART_PERSISTENT_STATE)
 })
 
 //типизация состояния хранилища
